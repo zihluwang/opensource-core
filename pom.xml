@@ -4,7 +4,28 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Project properties -->
+    <developers>
+        <developer>
+            <name>Theodore Hills</name>
+            <email>theodore0126@vorbote.cn</email>
+            <url>https://vorbote.cn</url>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version2.0</name>
+            <url>https://www.apache.org/licenses/</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/vorbote/commons</url>
+        <connection>https://github.com/vorbote/commons.git</connection>
+        <developerConnection>https://github.com/vorbote/commons</developerConnection>
+    </scm>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
@@ -15,21 +36,17 @@
         <project.version>3.0.0</project.version>
     </properties>
 
-    <!-- Parent project, easy to upload to maven central repo -->
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
         <version>7</version>
     </parent>
 
-    <!-- Project basic info -->
     <groupId>cn.vorbote</groupId>
     <artifactId>core</artifactId>
 
-    <!-- Project version -->
     <version>${project.version}</version>
 
-    <!-- Project display info -->
     <name>VorBotE :: Opensource Core</name>
     <description>This is the core lib of cn.vorbote libraries.</description>
 
@@ -76,28 +93,6 @@
     </dependencies>
 
     <packaging>jar</packaging>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version2.0</name>
-            <url>https://www.apache.org/licenses/</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <scm>
-        <url>https://github.com/vorbote/commons</url>
-        <connection>https://github.com/vorbote/commons.git</connection>
-        <developerConnection>https://github.com/vorbote/commons</developerConnection>
-    </scm>
-
-    <developers>
-        <developer>
-            <name>Theodore Hills</name>
-            <email>theodore0126@vorbote.cn</email>
-            <url>https://vorbote.cn</url>
-        </developer>
-    </developers>
 
     <distributionManagement>
         <snapshotRepository>
