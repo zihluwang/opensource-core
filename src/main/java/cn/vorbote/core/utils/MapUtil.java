@@ -1,4 +1,4 @@
-package cn.vorbote.core.util;
+package cn.vorbote.core.utils;
 
 import cn.vorbote.core.time.DateTime;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package cn.vorbote.core.util;
+package cn.vorbote.core.utils;
 
 /**
  * Miscellaneous {@link String} utility methods.
@@ -74,6 +74,17 @@ public final class StringUtil {
     }
 
     /**
+     * Check whether the given {@code CharSequence} contains actual <em>text</em>.
+     *
+     * @param str The {@code CharSequence} to check (maybe {@code null})
+     * @return Value {@code true} if the {@code CharSequence} is not {@code null}, its length is greater than 0, and it
+     * does not contain whitespace only.
+     */
+    public static boolean doesNotHaveText(CharSequence str) {
+        return !hasText(str);
+    }
+
+    /**
      * Check whether the given {@code String} contains actual <em>text</em>.
      *
      * @param str The {@code String} to check (maybe {@code null})
@@ -82,6 +93,17 @@ public final class StringUtil {
      */
     public static boolean hasText(String str) {
         return (str != null && str.length() > 0 && containsText(str));
+    }
+
+    /**
+     * Check whether the given {@code String} contains actual <em>text</em>.
+     *
+     * @param str The {@code String} to check (maybe {@code null})
+     * @return Value {@code true} if the {@code String} is {@code null}, its length is less than 0, or it contains
+     * whitespace only.
+     */
+    public static boolean doesNotHaveText(String str) {
+        return !hasText(str);
     }
 
     /**
@@ -175,7 +197,7 @@ public final class StringUtil {
      * @param base      The original string.
      * @param substring The substring.
      * @return The number of the count.
-     * @see #Count(String, String)
+     * @see #count(String, String)
      */
     public static int count(String base, String substring) {
         if (substring == null || "".equals(substring)) return 0;
@@ -290,7 +312,7 @@ public final class StringUtil {
             return format;
         }
 
-        if (Count(format, "{}") != args.length) {
+        if (count(format, "{}") != args.length) {
             throw new RuntimeException("");
         }
 

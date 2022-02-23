@@ -1,4 +1,4 @@
-package cn.vorbote.core.util;
+package cn.vorbote.core.utils;
 
 import cn.vorbote.core.constants.Hash;
 import cn.vorbote.core.exceptions.UnsupportedHashAlgorithmException;
