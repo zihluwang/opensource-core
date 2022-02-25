@@ -9,25 +9,11 @@ import java.util.Objects;
  */
 public final class TimeSpan {
 
-    /**
-     * The number of days between two times.
-     */
-    private int days;
+    private static final long SECONDS_IN_A_DAY = 86400L;
+    private static final long SECONDS_IN_A_HOUR = 3600L;
+    private static final long SECONDS_IN_A_MINUTE = 60L;
 
-    /**
-     * The number of hours between two times.
-     */
-    private int hours;
-
-    /**
-     * The number of minutes between two times.
-     */
-    private int minutes;
-
-    /**
-     * The number of seconds between two times.
-     */
-    private int seconds;
+    private long totalSeconds;
 
     /**
      * No-args constructor, you can use this to build a {@code TimeSpan} with 0 days, 0 hours, 0 minutes and 0 seconds.
@@ -36,21 +22,54 @@ public final class TimeSpan {
     }
 
     /**
+     * This constructor will build a {@code TimeSpan} with specific total seconds.
+     *
+     * @param totalSeconds The total seconds of this {@code TimeSpan}
+     */
+    public TimeSpan(int totalSeconds) {
+        this.totalSeconds = totalSeconds;
+    }
+
+    /**
+     * This constructor will build a {@code TimeSpan} with specific data.
+     *
+     * @param days    The days of this {@code TimeSpan}.
+     * @param hours   The hours of this {@code TimeSpan}.
+     * @param minutes The minutes of this {@code TimeSpan}.
+     * @param seconds The seconds of this {@code TimeSpan}.
+     */
+    public TimeSpan(int days, int hours, int minutes, int seconds) {
+        this.addDays(days);
+        this.addHours(hours);
+        this.addMinutes(minutes);
+        this.addSeconds(seconds);
+    }
+
+    /**
+     * Get total seconds.
+     *
+     * @return Total seconds.
+     */
+    public long getTotalSeconds() {
+        return totalSeconds;
+    }
+
+    /**
+     * Set total seconds.
+     *
+     * @param totalSeconds Total seconds.
+     */
+    public void setTotalSeconds(long totalSeconds) {
+        this.totalSeconds = totalSeconds;
+    }
+
+    /**
      * Get the number of days between two times.
      *
      * @return The number of days between two times.
      */
     public int getDays() {
-        return days;
-    }
-
-    /**
-     * Set the number of days between two times.
-     *
-     * @param days The number of days between two times.
-     */
-    public void setDays(int days) {
-        this.days = days;
+        return (int) (totalSeconds / SECONDS_IN_A_DAY);
     }
 
     /**
@@ -59,16 +78,7 @@ public final class TimeSpan {
      * @return The number of hours between two times.
      */
     public int getHours() {
-        return hours;
-    }
-
-    /**
-     * Set the number of hours between two times.
-     *
-     * @param hours The number of hours between two times.
-     */
-    public void setHours(int hours) {
-        this.hours = hours;
+        return ((int) ((totalSeconds - (getDays() * SECONDS_IN_A_DAY)) / SECONDS_IN_A_HOUR));
     }
 
     /**
@@ -77,16 +87,7 @@ public final class TimeSpan {
      * @return The number of minutes between two times.
      */
     public int getMinutes() {
-        return minutes;
-    }
-
-    /**
-     * Set the minutes of days between two times.
-     *
-     * @param minutes The number of minutes between two times.
-     */
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
+        return ((int) ((totalSeconds - (getDays() / SECONDS_IN_A_DAY) - (getHours() * SECONDS_IN_A_HOUR)) / SECONDS_IN_A_MINUTE));
     }
 
     /**
@@ -95,22 +96,13 @@ public final class TimeSpan {
      * @return The number of seconds between two times.
      */
     public int getSeconds() {
-        return seconds;
-    }
-
-    /**
-     * Set the number of seconds between two times.
-     *
-     * @param seconds The number of seconds between two times.
-     */
-    public void setSeconds(int seconds) {
-        this.seconds = seconds;
+        return (int) (totalSeconds % 60);
     }
 
     @Override
     public String toString() {
         return String.format("%d.%02d:%02d:%02d",
-                days, hours, minutes, seconds);
+                getDays(), getHours(), getMinutes(), getSeconds());
     }
 
     /**
@@ -119,7 +111,12 @@ public final class TimeSpan {
      * @return The total seconds in this {@code TimeSpan}.
      */
     public long totalSeconds() {
-        return days * 86400L + hours * 3600L + minutes * 60L + seconds;
+        return totalSeconds;
+    }
+
+    public TimeSpan totalSeconds(long totalSeconds) {
+        this.totalSeconds = totalSeconds;
+        return this;
     }
 
     /**
@@ -209,7 +206,7 @@ public final class TimeSpan {
          * @return {@code Builder} instance itself.
          */
         public Builder days(int days) {
-            target.setDays(days);
+            target.addDays(days);
             return this;
         }
 
@@ -220,7 +217,7 @@ public final class TimeSpan {
          * @return {@code Builder} instance itself.
          */
         public Builder hours(int hours) {
-            target.setHours(hours);
+            target.addHours(hours);
             return this;
         }
 
@@ -231,7 +228,7 @@ public final class TimeSpan {
          * @return {@code Builder} instance itself.
          */
         public Builder minutes(int minutes) {
-            target.setMinutes(minutes);
+            target.addHours(minutes);
             return this;
         }
 
@@ -242,7 +239,7 @@ public final class TimeSpan {
          * @return {@code Builder} instance itself.
          */
         public Builder seconds(int seconds) {
-            target.setSeconds(seconds);
+            target.addSeconds(seconds);
             return this;
         }
 
@@ -254,5 +251,53 @@ public final class TimeSpan {
         public TimeSpan build() {
             return target;
         }
+    }
+
+    /**
+     * Add seconds to this {@code TimeSpan}.<br>
+     * Note: This method support chain call.
+     *
+     * @param seconds Seconds need to be added to this {@code TimeSpan}.
+     * @return The {@code TimeSpan} instance itself.
+     */
+    public TimeSpan addSeconds(int seconds) {
+        this.totalSeconds += seconds;
+        return this;
+    }
+
+    /**
+     * Add minutes to this {@code TimeSpan}.<br>
+     * Note: This method support chain call.
+     *
+     * @param minutes Minutes need to be added to this {@code TimeSpan}.
+     * @return The {@code TimeSpan} instance itself.
+     */
+    public TimeSpan addMinutes(int minutes) {
+        this.totalSeconds += minutes * SECONDS_IN_A_MINUTE;
+        return this;
+    }
+
+    /**
+     * Add hours to this {@code TimeSpan}.<br>
+     * Note: This method support chain call.
+     *
+     * @param hours Hours need to be added to this {@code TimeSpan}.
+     * @return The {@code TimeSpan} instance itself.
+     */
+    public TimeSpan addHours(int hours) {
+        this.totalSeconds += hours * SECONDS_IN_A_HOUR;
+        return this;
+    }
+
+    /**
+     * Add days to this {@code TimeSpan}.<br>
+     * Note: This method support chain call.
+     *
+     * @param days Days need to be added to this {@code TimeSpan}.
+     * @return The {@code TimeSpan} instance itself.
+     */
+    public TimeSpan addDays(int days) {
+        this.totalSeconds += days * SECONDS_IN_A_DAY;
+        return this;
     }
 }

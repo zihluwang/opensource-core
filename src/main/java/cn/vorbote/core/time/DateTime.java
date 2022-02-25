@@ -233,6 +233,7 @@ public final class DateTime implements
      *
      * @return The Java Timestamp of this {@code DateTime} instance, but will lose the millisecond.
      */
+    @Deprecated
     public long Java() {
         return timestamp * 1000L;
     }
@@ -508,7 +509,7 @@ public final class DateTime implements
         var span = new TimeSpan();
 
         var seconds = this.timestamp - time.timestamp;
-        span.setSeconds((int) seconds);
+        span.setTotalSeconds((int) seconds);
 
         return span;
     }
@@ -597,7 +598,7 @@ public final class DateTime implements
      * Get the timestamp.
      *
      * @return The timestamp.
-     * @see #Unix()
+     * @see #unix()
      * @see #getTimestamp()
      */
     public long timestamp() {
@@ -610,7 +611,7 @@ public final class DateTime implements
      * Get the timestamp.
      *
      * @return The timestamp.
-     * @see #Unix()
+     * @see #unix()
      * @see #getTimestamp()
      */
     @Deprecated
@@ -697,6 +698,13 @@ public final class DateTime implements
         return equals(o);
     }
 
+    /**
+     * Returns a value indicating whether the value of this instance is equal to the value of the specified
+     * {@code DateTime} instance.
+     *
+     * @param o The object to compare to this instance.
+     * @return True if the value parameter equals the value of this instance; Otherwise, false.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -705,13 +713,28 @@ public final class DateTime implements
         return timestamp == dateTime.timestamp;
     }
 
+    /**
+     * Generate a hash code of this object.
+     *
+     * @return The hash code of this object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(timestamp);
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #addDays(double)} instead. This method will be remove since next release.
+     * Get the current Date and Time.
+     *
+     * @return The current Date and Time.
+     * @see #DateTime()
+     */
+    public static DateTime now() {
+        return new DateTime();
+    }
+
+    /**
+     * <b>This method is deprecated, please use {@link #now()} instead. This method will be remove since next release.
      * </b><br>
      * Get the current Date and Time.
      *
@@ -720,47 +743,74 @@ public final class DateTime implements
      */
     @Deprecated
     public static DateTime Now() {
-        return new DateTime();
+        return now();
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #addDays(double)} instead. This method will be remove since next release.
-     * </b><br>
+     * Returns an indication whether the specified year is a leap year.
+     *
+     * @return An indication whether the specified year is a leap year.
+     */
+    public boolean isLeapYear() {
+        var calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestamp() * 1000L);
+        var year = calendar.get(Calendar.YEAR);
+        return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
+    }
+
+    /**
+     * <b>This method is deprecated, please use {@link #isLeapYear()} instead. This method will be remove since next
+     * release.</b><br>
      * Returns an indication whether the specified year is a leap year.
      *
      * @return An indication whether the specified year is a leap year.
      */
     @Deprecated
     public boolean IsLeapYear() {
-        var calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(Timestamp() * 1000L);
-        var year = calendar.get(Calendar.YEAR);
-        return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
+        return isLeapYear();
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #addDays(double)} instead. This method will be remove since next release.
-     * </b><br>
+     * Convert {@code DateTime} instance to {@code Date} instance.
+     *
+     * @return {@code Date} instance.
+     */
+    public Date toDate() {
+        return new Date(this.timestamp() * 1000L);
+    }
+
+    /**
+     * <b>This method is deprecated, please use {@link #toDate()} instead. This method will be remove since next
+     * release.</b><br>
      * Convert {@code DateTime} instance to {@code Date} instance.
      *
      * @return {@code Date} instance.
      */
     @Deprecated
     public Date ToDate() {
-        return new Date(this.Timestamp() * 1000L);
+        return toDate();
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #addDays(double)} instead. This method will be remove since next release.
-     * </b><br>
+     * Convert {@code DateTime} instance to {@code Calendar} instance.
+     *
+     * @return {@code Calendar} instance.
+     */
+    public Calendar toCalendar() {
+        var instance = Calendar.getInstance();
+        instance.setTime(this.toDate());
+        return instance;
+    }
+
+    /**
+     * <b>This method is deprecated, please use {@link #toCalendar()} instead. This method will be remove since next
+     * release.</b><br>
      * Convert {@code DateTime} instance to {@code Calendar} instance.
      *
      * @return {@code Calendar} instance.
      */
     @Deprecated
     public Calendar ToCalendar() {
-        var instance = Calendar.getInstance();
-        instance.setTime(this.ToDate());
-        return instance;
+        return toCalendar();
     }
 }
