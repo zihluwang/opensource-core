@@ -36,8 +36,7 @@ public final class DateTime implements
     private static void check(int year, int month, int date, int hour, int minute, int second) {
         // The month number should between 1 ~ 12
         if (month <= 0 || month > 12) {
-            throw new TimeOutRangeException(String.format("The month: %d is out of range of (1 ~ 12).",
-                    month));
+            throw new TimeOutRangeException("month", 1, 12);
         }
 
         var dayInTheMonth = 0;
@@ -67,23 +66,25 @@ public final class DateTime implements
 
         // The month number should between 1 ~ the days in the month
         if (date < 1 || date > dayInTheMonth) {
-            throw new TimeOutRangeException(String.format("The date: %d is out of range of (1 ~ %d).",
-                    date, dayInTheMonth));
+            throw new TimeOutRangeException("date", 1, dayInTheMonth);
         }
 
         // Check the hour
         if (hour < 0 || hour > 23) {
-            throw new TimeOutRangeException(String.format("The hour: %d is out of range of (0 ~ 23)", hour));
+            // throw new TimeOutRangeException(String.format("The hour: %d is out of range of (0 ~ 23)", hour));
+            throw new TimeOutRangeException("hour", 0, 23);
         }
 
         // Check the minute
         if (minute < 0 || minute > 59) {
-            throw new TimeOutRangeException(String.format("The minute: %d is out of range of (0 ~ 59)", minute));
+            // throw new TimeOutRangeException(String.format("The minute: %d is out of range of (0 ~ 59)", minute));
+            throw new TimeOutRangeException("minute", 0, 59);
         }
 
         // Check the second
         if (second < 0 || second > 59) {
-            throw new TimeOutRangeException(String.format("The second: %d is out of range of (0 ~ 59)", second));
+            // throw new TimeOutRangeException(String.format("The second: %d is out of range of (0 ~ 59)", second));
+            throw new TimeOutRangeException("second", 0, 59);
         }
     }
 
@@ -113,13 +114,28 @@ public final class DateTime implements
     }
 
     /**
+     * Common constructor for timestamp.
+     *
+     * @param timestamp      The timestamp, no matter use unix timestamp or java timestamp.
+     * @param useMillisecond If this timestamp uses millisecond, please specify this to {@code true}, otherwise
+     *                       {@code false}.
+     */
+    public DateTime(long timestamp, boolean useMillisecond) {
+        if (useMillisecond) {
+            this.timestamp = timestamp / 1_000L;
+        } else {
+            this.timestamp = timestamp;
+        }
+    }
+
+    /**
      * Build a {@code DateTime} instance by java timestamp or
      * unix timestamp.
      *
      * @param timestamp Unix Timestamp.
      */
     public DateTime(long timestamp) {
-        this.timestamp = timestamp;
+        this(timestamp, false);
     }
 
     /**
@@ -128,7 +144,7 @@ public final class DateTime implements
      * @param date A {@code Date} instance.
      */
     public DateTime(Date date) {
-        this.timestamp = date.getTime() / 1000L;
+        this(date.getTime(), true);
     }
 
     /**
@@ -137,7 +153,7 @@ public final class DateTime implements
      * @param calendar A {@code Calendar} instance.
      */
     public DateTime(Calendar calendar) {
-        this.timestamp = calendar.getTimeInMillis() / 1000L;
+        this(calendar.getTimeInMillis(), true);
     }
 
     /**
