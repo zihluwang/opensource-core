@@ -5,66 +5,111 @@ package cn.vorbote.core.constants;
  *
  * @author vorbote
  */
-public final class Month {
+public enum Month implements IConstant<Integer> {
 
     /**
      * Constant value January
      */
-    public final int JANUARY = 1;
+    JANUARY(1),
 
     /**
      * Constant value FEBRUARY
      */
-    public final int FEBRUARY = 2;
+    FEBRUARY(2),
 
     /**
      * Constant value MARCH
      */
-    public final int MARCH = 3;
+    MARCH(3),
 
     /**
      * Constant value APRIL
      */
-    public final int APRIL = 4;
+    APRIL(4),
 
     /**
      * Constant value MAY
      */
-    public final int MAY = 5;
+    MAY(5),
 
     /**
      * Constant value JUNE
      */
-    public final int JUNE = 6;
+    JUNE(6),
 
     /**
      * Constant value JULY
      */
-    public final int JULY = 7;
+    JULY(7),
 
     /**
      * Constant value AUGUST
      */
-    public final int AUGUST = 8;
+    AUGUST(8),
 
     /**
      * Constant value SEPTEMBER
      */
-    public final int SEPTEMBER = 9;
+    SEPTEMBER(9),
 
     /**
      * Constant value OCTOBER
      */
-    public final int OCTOBER = 10;
+    OCTOBER(10),
 
     /**
      * Constant value NOVEMBER
      */
-    public final int NOVEMBER = 11;
+    NOVEMBER(11),
 
     /**
      * Constant value DECEMBER
      */
-    public final int DECEMBER = 12;
+    DECEMBER(12);
 
+    final int value;
+
+    Month(int value) {
+        this.value = value;
+    }
+
+    /**
+     * Get the month value.
+     *
+     * @return The month value.
+     */
+    public int getValue() {
+        return value;
+    }
+
+    /**
+     * Get the instance value of this constant value.
+     *
+     * @return The instance value of this constant value.
+     */
+    public Integer get() {
+        return getValue();
+    }
+
+    /**
+     * Check whether the provided {@code value} is a correct value of this enumeration.
+     *
+     * @param value The {@code value} to check.
+     * @return Value {@code true} if the value is one of these enumerations.
+     */
+    @Override
+    public boolean isCorrectValue(Integer value) {
+        if (value == null) {
+            return false;
+        }
+
+        var values = Month.values();
+        for (var month : values) {
+            if (month.get() == value) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

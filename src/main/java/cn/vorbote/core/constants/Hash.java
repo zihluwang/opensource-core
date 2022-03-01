@@ -1,12 +1,14 @@
 package cn.vorbote.core.constants;
 
+import cn.vorbote.core.utils.StringUtil;
+
 /**
  * This is an enum class for {@code HashUtil} and supplied  all supported methods by the {@code HashUtil}.
  *
  * @author vorbote
  * @since 3.0.0
  */
-public enum Hash {
+public enum Hash implements IConstant<String> {
 
     MD2("MD2"), MD5("MD5"),
 
@@ -42,5 +44,36 @@ public enum Hash {
      */
     public String ToString() {
         return value;
+    }
+
+    /**
+     * Get the instance value of this constant value.
+     *
+     * @return The instance value of this constant value.
+     */
+    @Override
+    public String get() {
+        return value;
+    }
+
+    /**
+     * Check whether the provided {@code value} is a correct value of this enumeration.
+     *
+     * @param value The {@code value} to check.
+     * @return Value {@code true} if the value is one of these enumerations.
+     */
+    @Override
+    public boolean isCorrectValue(String value) {
+        if (value == null || StringUtil.doesNotHaveText(value)) {
+            return false;
+        }
+
+        var values = Hash.values();
+        for (var hash : values) {
+            if (hash.get().equals(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
