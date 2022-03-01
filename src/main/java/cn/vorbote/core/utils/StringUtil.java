@@ -3,7 +3,22 @@ package cn.vorbote.core.utils;
 /**
  * Miscellaneous {@link String} utility methods.
  *
+ * This class comes {@code org.springframework.util.StringUtils} and made some changes to fit the standard in this lib.
+ * The original authors are:
+ * <ul>
+ *     <li>Rod Johnson</li>
+ *     <li>Juergen Hoeller</li>
+ *     <li>Keith Donald</li>
+ *     <li>Rob Harrop</li>
+ *     <li>Rick Evans</li>
+ *     <li>Arjen Poutsma</li>
+ *     <li>Sam Brannen</li>
+ *     <li>Brian Clozel</li>
+ * </ul>
+ * Thanks for their huge efforts for this useful tool!
+ *
  * @author vorbote
+ * @since 16 April 2001
  */
 public final class StringUtil {
 
