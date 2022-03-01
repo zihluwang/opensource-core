@@ -44,18 +44,10 @@ public final class HashUtil {
      * @see MessageDigest#getInstance(String)
      */
     public static String encrypt(Hash method, String value) {
-        switch (method) {
-            case MD2:
-            case MD5:
-            case SHA_1:
-            case SHA_224:
-            case SHA_256:
-            case SHA_384:
-            case SHA_512:
-                break;
-            default:
-                throw new UnsupportedHashAlgorithmException("No such encryption Algorithm");
+        if (method == Hash.RC4 || method == Hash.AES || method == Hash.DES) {
+            throw new UnsupportedHashAlgorithmException(method.get());
         }
+
         String result = "";
         try {
             MessageDigest md = MessageDigest.getInstance(method.ToString());
