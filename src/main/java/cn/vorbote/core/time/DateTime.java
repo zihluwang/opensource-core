@@ -549,6 +549,7 @@ public final class DateTime implements
      * Set pattern for this datetime.
      *
      * @param pattern The formatted String.
+     * @return The {@code DateTime} instance itself.
      */
     public DateTime pattern(String pattern) {
         this.pattern = pattern;
@@ -561,6 +562,7 @@ public final class DateTime implements
      * Set pattern for this datetime.
      *
      * @param pattern The formatted String.
+     * @return The {@code DateTime} instance itself.
      */
     @Deprecated
     public DateTime Pattern(String pattern) {
@@ -592,6 +594,7 @@ public final class DateTime implements
      * Set the timestamp.
      *
      * @param timestamp The timestamp.
+     * @return The {@code DateTime} instance itself.
      */
     public DateTime timestamp(long timestamp) {
         this.timestamp = timestamp;
@@ -604,6 +607,7 @@ public final class DateTime implements
      * Set the timestamp.
      *
      * @param timestamp The timestamp.
+     * @return The {@code DateTime} instance itself.
      */
     @Deprecated
     public DateTime Timestamp(long timestamp) {
