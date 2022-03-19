@@ -29,9 +29,7 @@ public final class DateTime implements
      * @param hour   The hour (0 through 23).
      * @param minute The minute (0 through 59).
      * @param second The second (0 through 59).
-     * @throws TimeOutRangeException If the time is set out the correct
-     *                               range, the exception will be throw
-     *                               out.
+     * @throws TimeOutRangeException 如果时间被设置成了非正确的数据，就会抛出这个异常。
      */
     private static void check(int year, int month, int date, int hour, int minute, int second) {
         // The month number should between 1 ~ 12
@@ -179,11 +177,11 @@ public final class DateTime implements
     }
 
     /**
-     * Generate a specified {@code DateTime} instance of the date.
+     * 生成一个当前日期的{@code DateTime}实例。
      *
-     * @param year   The year (1 through 9999).
-     * @param month  The month (1 through 12).
-     * @param date   The day (1 through the number of days in month).
+     * @param year   年份(1到9999)。
+     * @param month  月份(1到12)。
+     * @param date   日期(1到这个月最大的天数).
      * @param hour   The hour (0 through 23).
      * @param minute The minute (0 through 59).
      * @param second The second (0 through 59).
