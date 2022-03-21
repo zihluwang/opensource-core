@@ -271,8 +271,10 @@ public final class MapUtil {
      * Get the specified field value, equivalent to {@code obj.getFieldName}. Before using this method, please make sure
      * that you have a <strong>getter</strong> for that field you need.
      *
-     * @param fieldName Field name
-     * @param obj       object
+     * @param obj           object
+     * @param fieldName     Field name
+     * @param requiredClass The instance of the specified class.
+     * @param <T>           The type of the value.
      * @return A string of the object corresponding to the object value
      * @throws NoSuchFieldException   This method will call {@link Class#getDeclaredField(String)}, if the requested field
      *                                could not be found, this exception will be thrown.
@@ -298,19 +300,19 @@ public final class MapUtil {
      * Get the specified field value, equivalent to {@code obj.getFieldName}. Before using this method, please make sure
      * that you have a <strong>getter</strong> for that field you need.
      *
-     * @param fieldName Field name
-     * @param obj       object
+     * @param obj           object
+     * @param fieldName     Field name
+     * @param requiredClass The instance of the specified class.
+     * @param <T>           The type of the value.
      * @return A string of the object corresponding to the object value
-     * @throws NoSuchFieldException   This method will call {@link Class#getDeclaredField(String)}, if the requested field
-     *                                could not be found, this exception will be thrown.
+     * @throws NoSuchFieldException   This method will call {@link Class#getDeclaredField(String)}, if the requested
+     *                                field could not be found, this exception will be thrown.
      * @throws IllegalAccessException This method will call {@link Field#get(Object)}, if this Field object is enforcing
      *                                Java language access control and the underlying field is inaccessible, this
      *                                exception will be thrown.
      * @see Object#getClass()
      * @see Class#getDeclaredField(String)
      * @see Field#setAccessible(boolean)
-     * @see Field#get(Object)
-     * @see #cast(Object, Class)
      */
     @Deprecated
     public static <T> T GetFieldValue(Object obj, String fieldName, Class<T> requiredClass) throws Exception {

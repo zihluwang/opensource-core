@@ -1,7 +1,7 @@
 package cn.vorbote.core.exceptions;
 
 /**
- * If the value of the specific field in time is out of its correct range, this exception will be thrown.<br/>
+ * If the value of the specific field in time is out of its correct range, this exception will be thrown.<br>
  * For example, if you set the field "minute" to 60 will cause this exception.
  *
  * @author vorbote
