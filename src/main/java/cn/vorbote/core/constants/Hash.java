@@ -4,7 +4,7 @@ import cn.vorbote.core.utils.StringUtil;
 
 /**
  * This is an enum class for {@code HashUtil} and supplied  all supported methods by the {@code HashUtil}.
- *
+ *sdfsdf
  * @author vorbote
  * @since 3.0.0
  */
