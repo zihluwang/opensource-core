@@ -1,25 +1,26 @@
 package cn.vorbote.core.constants;
 
 /**
- * The interface {@code IConstant} is the standard of all the enumerations in the class library.<br>
- * Created at 3/1/2022 11:06 PM.
+ * {@code IConstant}接口是所有类库中枚举类型的标准。
+ * 创建时间：3/1/2022 11:06 PM。
  *
  * @author vorbote
+ * @author 蒋超(translator)
  */
 public interface IConstant<T> {
 
     /**
-     * Get the instance value of this constant value.
+     * 获得该常量值的实例值。
      *
-     * @return The instance value of this constant value.
+     * @return 该常量值的实例值。
      */
     T get();
 
     /**
-     * Check whether the provided {@code value} is a correct value of this enumeration.
+     * 检查提供的{@code value}是否是枚举类型中的正确的值。
      *
-     * @param value The {@code value} to check.
-     * @return Value {@code true} if the value is one of these enumerations.
+     * @param  value 要检查的{@code value}的值。
+     * @return  Value {@code true}是否属于枚举类型。
      */
     boolean isCorrectValue(T value);
 

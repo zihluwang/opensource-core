@@ -3,9 +3,10 @@ package cn.vorbote.core.constants;
 import cn.vorbote.core.utils.StringUtil;
 
 /**
- * This is an enum class for {@code HashUtil} and supplied  all supported methods by the {@code HashUtil}.
- *sdfsdf
+ * 这是一个{@code HashUtil}的枚举类并且通过{@code HashUtil}提供所有支持的方法。
+ *
  * @author vorbote
+ * @author 蒋超(translator)
  * @since 3.0.0
  */
 public enum Hash implements IConstant<String> {
@@ -24,10 +25,9 @@ public enum Hash implements IConstant<String> {
     }
 
     /**
-     * This method helps you get the value of the enum. Deprecated
-     * because of its name.
+     * 该方法帮助你获得枚举的值。由于名字原因已被废弃。
      *
-     * @return The value included in this enum.
+     * @return 枚举中包括的值。
      * @see #ToString()
      */
     @Deprecated
@@ -37,9 +37,9 @@ public enum Hash implements IConstant<String> {
     }
 
     /**
-     * This method helps you get the value of the enum.
+     * 该方法帮助你获得枚举的值。
      *
-     * @return The value included in this enum.
+     * @return  枚举中包括的值。
      * @see #ToString()
      */
     public String ToString() {
@@ -47,9 +47,9 @@ public enum Hash implements IConstant<String> {
     }
 
     /**
-     * Get the instance value of this constant value.
+     * 获取此常量值的实例值。
      *
-     * @return The instance value of this constant value.
+     * @return 此常量值的实例值。
      */
     @Override
     public String get() {
@@ -57,10 +57,10 @@ public enum Hash implements IConstant<String> {
     }
 
     /**
-     * Check whether the provided {@code value} is a correct value of this enumeration.
+     * 检查提供的{@code value}是否是枚举类型中的正确的值。
      *
-     * @param value The {@code value} to check.
-     * @return Value {@code true} if the value is one of these enumerations.
+     * @param  value 要检查的{@code value}的值。
+     * @return  Value {@code true}是否属于枚举类型。
      */
     @Override
     public boolean isCorrectValue(String value) {

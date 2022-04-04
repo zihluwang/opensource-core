@@ -1,69 +1,70 @@
 package cn.vorbote.core.constants;
 
 /**
- * Month constant values.
+ * 月份的常量值
  *
  * @author vorbote
+ * @author 蒋超(translator)
  */
 public enum Month implements IConstant<Integer> {
 
     /**
-     * Constant value January
+     * 一月的常量值
      */
     JANUARY(1),
 
     /**
-     * Constant value FEBRUARY
+     * 二月的常量值
      */
     FEBRUARY(2),
 
     /**
-     * Constant value MARCH
+     * 三月的常量值
      */
     MARCH(3),
 
     /**
-     * Constant value APRIL
+     * 四月的常量值
      */
     APRIL(4),
 
     /**
-     * Constant value MAY
+     * 五月的常量值
      */
     MAY(5),
 
     /**
-     * Constant value JUNE
+     * 六月的常量值
      */
     JUNE(6),
 
     /**
-     * Constant value JULY
+     * 七月的常量值
      */
     JULY(7),
 
     /**
-     * Constant value AUGUST
+     * 八月的常量值
      */
     AUGUST(8),
 
     /**
-     * Constant value SEPTEMBER
+     * 九月的常量值
      */
     SEPTEMBER(9),
 
     /**
-     * Constant value OCTOBER
+     * 十月的常量值
      */
     OCTOBER(10),
 
     /**
-     * Constant value NOVEMBER
+     * 十一月的常量值
      */
     NOVEMBER(11),
 
     /**
-     * Constant value DECEMBER
+     * 十二月的常量值
      */
     DECEMBER(12);
 
@@ -74,28 +75,28 @@ public enum Month implements IConstant<Integer> {
     }
 
     /**
-     * Get the month value.
+     * 获得月份的值。
      *
-     * @return The month value.
+     * @return 月份的值。
      */
     public int getValue() {
         return value;
     }
 
     /**
-     * Get the instance value of this constant value.
+     * 获得该常量值的实例值。
      *
-     * @return The instance value of this constant value.
+     * @return 该常量值的实例值。
      */
     public Integer get() {
         return getValue();
     }
 
     /**
-     * Check whether the provided {@code value} is a correct value of this enumeration.
+     * 检查提供的{@code value}是否是枚举类型中的正确的值。
      *
-     * @param value The {@code value} to check.
-     * @return Value {@code true} if the value is one of these enumerations.
+     * @param  value 要检查的{@code value}的值。
+     * @return  Value {@code true}是否属于枚举类型。
      */
     @Override
     public boolean isCorrectValue(Integer value) {

@@ -1,24 +1,25 @@
 package cn.vorbote.core.exceptions;
 
 /**
- * If the value of the specific field in time is out of its correct range, this exception will be thrown.<br/>
- * For example, if you set the field "minute" to 60 will cause this exception.
+ * 如果时间里的特点字段值超出它的正确范围，该异常将被抛出。
+ * 例如，如果你设置“minute”字段为60将或引起这个异常
  *
  * @author vorbote
+ * @author 蒋超(translator)
  */
 public class TimeOutRangeException extends RuntimeException {
 
     /**
-     * Message of this exception, to tell the coder which field is wrong.
+     * 异常的信息，告诉编程者哪个字段是错误的。
      */
     private final String message;
 
     /**
-     * Constructor, to build a clear exception message.
+     * 构造器，创建一个清楚的异常信息。
      *
-     * @param field               The field which is set to be a wrong value.
-     * @param correctMinimumValue The correct minimum value of this field.
-     * @param correctMaximumValue The correct maximum value of this field.
+     * @param field               被设置为错误值的字段。
+     * @param correctMinimumValue 该字段的最小正确值。
+     * @param correctMaximumValue 该字段的最大正确值。
      */
     public TimeOutRangeException(String field, Integer correctMinimumValue, Integer correctMaximumValue) {
         message = String.format("The %s is out of range of (%d ~ %d).", field, correctMinimumValue,
@@ -26,9 +27,9 @@ public class TimeOutRangeException extends RuntimeException {
     }
 
     /**
-     * Convert to a {@code String} to make this exception clear enough for coders.
+     * 转化成一个{@code String}使编程者更加清楚这个异常信息。
      *
-     * @return A {@code String} includes what went wrong.
+     * @return 一个{@code String}包含了哪里出错。
      */
     @Override
     public String toString() {
@@ -36,9 +37,9 @@ public class TimeOutRangeException extends RuntimeException {
     }
 
     /**
-     * Convert to a {@code String} to make this exception clear enough for coders.
+     * 转化成一个{@code String}使编程者更加清楚这个异常信息。
      *
-     * @return A {@code String} includes what went wrong.
+     * @return 一个{@code String}包含了哪里出错。
      * @see #toString()
      */
     @Override
