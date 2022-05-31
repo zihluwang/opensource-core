@@ -6,16 +6,35 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
- * CalculationUtil<br>
+ * <p>
+ * Calculation Util can help you with high precision math calculation.
+ * </p>
+ *
+ * <p>
+ * This util is made by Github User @sunzsh, and the source code location is <a
+ * href="https://gist.github.com/sunzsh/ddaaa065335f4c4b94aba7a1ea47b5ee">Github Gist</a>
+ * </p>
+ *
+ * <p>
+ * Note: Some changes was made by Github user @vorbote because of the deprecation of method
+ * {@link BigDecimal#setScale(int, int)}, all call to this method was moved to
+ * {@link BigDecimal#setScale(int, RoundingMode)}.
+ * </p>
  * Created at 5/26/2022 11:31 PM
  *
- * @author sunzsh github.com:sunzsh
+ * @author sunzsh
+ * @author vorbote
  */
 public class CalculationUtil {
 
     private BigDecimal value;
 
-    private CalculationUtil(Object value) {
+    /**
+     * Make the constructor private and protect it being initialized from outside.
+     *
+     * @param value The number value.
+     */
+    private CalculationUtil(Number value) {
         this.value = convertBigDecimal(value, null);
     }
 
@@ -25,138 +44,173 @@ public class CalculationUtil {
      * @param value The initial value.
      * @return The {@code CalculationUtil} instance.
      */
-    public static CalculationUtil startOf(Object value) {
+    public static CalculationUtil startOf(Number value) {
         return new CalculationUtil(value);
     }
 
     /**
-     * Plus a number with this other number.
+     * Add a number to the original figure.
      *
-     * @param other
-     * @return
+     * @param other The other number.
+     * @return The calculated instance.
      */
     public CalculationUtil add(Number other) {
         return operator(BigDecimal::add, other);
     }
 
     /**
-     * 加
+     * Calc: the original value <b>add</b> the other number.
      *
-     * @param other
-     * @param beforeOperateScale 加之前先把 other 四舍五入法保留 beforeOperateScale 位小数
-     * @return
+     * @param other              The other number to be added.
+     * @param beforeOperateScale Round {@code other} to {@code beforeOperateScale} decimal places before doing adding.
+     * @return The calculated instance.
      */
     public CalculationUtil add(Number other, Integer beforeOperateScale) {
         return operator(BigDecimal::add, other, beforeOperateScale);
     }
 
     /**
-     * 减
+     * Calc: the original value <b>subtract</b> the other number.
      *
-     * @param other
-     * @return
+     * @param other The value to be subtracted.
+     * @return The calculated instance.
      */
     public CalculationUtil subtract(Number other) {
         return operator(BigDecimal::subtract, other);
     }
 
     /**
-     * 减
+     * Calc: the original value <b>subtract</b> the other number.
      *
-     * @param other
-     * @param beforeOperateScale 减之前先把 other 四舍五入法保留 beforeOperteScale 位小数
-     * @return
+     * @param other              The value to be subtracted.
+     * @param beforeOperateScale Round {@code other} to {@code beforeOperateScale} decimal places before doing
+     *                           subtracting.
+     * @return The calculated instance.
      */
     public CalculationUtil subtract(Number other, Integer beforeOperateScale) {
         return operator(BigDecimal::subtract, other, beforeOperateScale);
     }
 
     /**
-     * 乘
+     * Calc: the original value <b>multiply</b> the other number.
      *
-     * @param other
-     * @return
+     * @param other The value to be multiplied.
+     * @return The calculated instance.
      */
     public CalculationUtil multiply(Number other) {
         return operator(BigDecimal::multiply, other);
     }
 
     /**
-     * 乘
+     * Calc: the original value <b>multiply</b> the other number.
      *
-     * @param other
-     * @param beforeOperateScale 乘之前先把 other 四舍五入法保留 beforeOperteScale 位小数
-     * @return
+     * @param other              The value to be multiplied.
+     * @param beforeOperateScale Round {@code other} to {@code beforeOperateScale} decimal places before doing
+     *                           multiplication.
+     * @return The calculated instance.
      */
     public CalculationUtil multiply(Number other, Integer beforeOperateScale) {
         return operator(BigDecimal::multiply, other, beforeOperateScale);
     }
 
     /**
-     * 除以
+     * Calc: the original value <b>divide</b> the other number.
      *
-     * @param other
-     * @return
+     * @param other The value to be divided.
+     * @return The calculated instance.
      */
     public CalculationUtil divide(Number other) {
         return operator(BigDecimal::divide, other);
     }
 
     /**
-     * 除以
+     * Calc: the original value <b>divide</b> the other number.
      *
-     * @param other
-     * @param beforeOperateScale 除之前先把 other 四舍五入法保留 beforeOperateScale 位小数
-     * @return
+     * @param other              The value to be multiplied.
+     * @param beforeOperateScale Round {@code other} to {@code beforeOperateScale} decimal places before doing
+     *                           multiplication.
+     * @return The calculated instance.
      */
     public CalculationUtil divide(Number other, Integer beforeOperateScale) {
         return operator(BigDecimal::divide, other, beforeOperateScale);
     }
 
     /**
-     * 除以
+     * Calc: the original value <b>divide</b> the other number.
      *
-     * @param other
-     * @param scale 结果保留 scale 位小数
-     * @return
+     * @param other The value to be multiplied.
+     * @param scale The result is rounded to {@code scale} decimal places.
+     * @return The calculated instance.
      */
     public CalculationUtil divideWithScale(Number other, Integer scale) {
-        return baseOperator(otherValue -> this.value.divide(otherValue, scale, RoundingMode.HALF_UP), other, null);
+        return baseOperator(otherValue ->
+                this.value.divide(otherValue, scale, RoundingMode.HALF_UP), other, null);
     }
 
     /**
-     * 除以
+     * Calc: the original value <b>divide</b> the other number.
      *
-     * @param other
-     * @param scale              结果保留 scale 位小数
-     * @param beforeOperateScale 除以之前先把 other 四舍五入法保留 beforeOperteScale 位小数
-     * @return
+     * @param other              The value to be multiplied.
+     * @param scale              The result is rounded to {@code scale} decimal places.
+     * @param beforeOperateScale Round {@code other} to {@code beforeOperateScale} decimal places before doing dividing.
+     * @return The calculated instance.
      */
     public CalculationUtil divideWithScale(Number other, Integer scale, Integer beforeOperateScale) {
         return baseOperator(otherValue -> this.value.divide(otherValue, scale, RoundingMode.HALF_UP), other, beforeOperateScale);
     }
 
-
+    /**
+     * Get the value of the calculation in {@code BigDecimal}.
+     *
+     * @return The result of the figure.
+     */
     public BigDecimal getValue() {
         return value;
     }
 
+    /**
+     * Get the value of the calculation in {@code BigDecimal}.
+     *
+     * @param scale The result is rounded to {@code scale} decimal places.
+     * @return The result of the figure.
+     */
     public BigDecimal getValue(int scale) {
         return value.setScale(scale, RoundingMode.HALF_UP);
     }
 
+    /**
+     * Get the value of the calculation in {@code Double}.
+     *
+     * @return The result of the figure.
+     */
     public Double getDouble() {
         return getValue().doubleValue();
     }
 
+    /**
+     * Get the value of the calculation in {@code Double}.
+     *
+     * @param scale The result is rounded to {@code scale} decimal places.
+     * @return The result of the figure.
+     */
     public Double getDouble(int scale) {
         return getValue(scale).doubleValue();
     }
 
+    /**
+     * Get the value of the calculation in {@code Long}.
+     *
+     * @return The result of the figure.
+     */
     public Long getLong() {
         return getValue().longValue();
     }
 
+    /**
+     * Get the value of the calculation in {@code Integer}.
+     *
+     * @return The result of the figure.
+     */
     public Integer getInteger() {
         return getValue().intValue();
     }
@@ -165,11 +219,11 @@ public class CalculationUtil {
         return operator(operator, other, null);
     }
 
-    private CalculationUtil operator(BiFunction<BigDecimal, BigDecimal, BigDecimal> operator, Object other, Integer beforeOperteScale) {
-        return baseOperator(otherValue -> operator.apply(this.value, otherValue), other, beforeOperteScale);
+    private CalculationUtil operator(BiFunction<BigDecimal, BigDecimal, BigDecimal> operator, Object other, Integer beforeOperateScale) {
+        return baseOperator(otherValue -> operator.apply(this.value, otherValue), other, beforeOperateScale);
     }
 
-    private synchronized CalculationUtil baseOperator(Function<BigDecimal, BigDecimal> operatorFunction, Object other, Integer beforeOperteScale) {
+    private synchronized CalculationUtil baseOperator(Function<BigDecimal, BigDecimal> operatorFunction, Object other, Integer beforeOperateScale) {
         if (other == null) {
             return this;
         }
@@ -177,7 +231,7 @@ public class CalculationUtil {
             this.value = operatorFunction.apply(((CalculationUtil) other).getValue());
             return this;
         }
-        this.value = operatorFunction.apply(convertBigDecimal(other, beforeOperteScale));
+        this.value = operatorFunction.apply(convertBigDecimal(other, beforeOperateScale));
         return this;
     }
 
