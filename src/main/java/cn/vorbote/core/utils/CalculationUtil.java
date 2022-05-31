@@ -1,6 +1,7 @@
 package cn.vorbote.core.utils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -40,97 +41,108 @@ public class CalculationUtil {
 
     /**
      * 加
+     *
      * @param other
-     * @param beforeOperteScale 加之前先把 other 四舍五入法保留 beforeOperteScale 位小数
+     * @param beforeOperateScale 加之前先把 other 四舍五入法保留 beforeOperateScale 位小数
      * @return
      */
-    public CalculationUtil add(Object other, Integer beforeOperteScale) {
-        return operator(BigDecimal::add, other, beforeOperteScale);
+    public CalculationUtil add(Number other, Integer beforeOperateScale) {
+        return operator(BigDecimal::add, other, beforeOperateScale);
     }
 
     /**
      * 减
+     *
      * @param other
      * @return
      */
-    public CalculationUtil subtract(Object other) {
+    public CalculationUtil subtract(Number other) {
         return operator(BigDecimal::subtract, other);
     }
 
     /**
      * 减
+     *
      * @param other
-     * @param beforeOperteScale 减之前先把 other 四舍五入法保留 beforeOperteScale 位小数
+     * @param beforeOperateScale 减之前先把 other 四舍五入法保留 beforeOperteScale 位小数
      * @return
      */
-    public CalculationUtil subtract(Object other, Integer beforeOperteScale) {
-        return operator(BigDecimal::subtract, other, beforeOperteScale);
+    public CalculationUtil subtract(Number other, Integer beforeOperateScale) {
+        return operator(BigDecimal::subtract, other, beforeOperateScale);
     }
 
     /**
      * 乘
+     *
      * @param other
      * @return
      */
-    public CalculationUtil multiply(Object other) {
+    public CalculationUtil multiply(Number other) {
         return operator(BigDecimal::multiply, other);
     }
 
     /**
      * 乘
+     *
      * @param other
-     * @param beforeOperteScale 乘之前先把 other 四舍五入法保留 beforeOperteScale 位小数
+     * @param beforeOperateScale 乘之前先把 other 四舍五入法保留 beforeOperteScale 位小数
      * @return
      */
-    public CalculationUtil multiply(Object other, Integer beforeOperteScale) {
-        return operator(BigDecimal::multiply, other, beforeOperteScale);
+    public CalculationUtil multiply(Number other, Integer beforeOperateScale) {
+        return operator(BigDecimal::multiply, other, beforeOperateScale);
     }
 
     /**
      * 除以
+     *
      * @param other
      * @return
      */
-    public CalculationUtil divide(Object other) {
+    public CalculationUtil divide(Number other) {
         return operator(BigDecimal::divide, other);
     }
+
     /**
      * 除以
+     *
      * @param other
-     * @param beforeOperteScale 除之前先把 other 四舍五入法保留 beforeOperteScale 位小数
+     * @param beforeOperateScale 除之前先把 other 四舍五入法保留 beforeOperateScale 位小数
      * @return
      */
-    public CalculationUtil divide(Object other, Integer beforeOperteScale) {
-        return operator(BigDecimal::divide, other, beforeOperteScale);
+    public CalculationUtil divide(Number other, Integer beforeOperateScale) {
+        return operator(BigDecimal::divide, other, beforeOperateScale);
     }
 
     /**
      * 除以
+     *
      * @param other
      * @param scale 结果保留 scale 位小数
      * @return
      */
-    public CalculationUtil divideWithScale(Object other, Integer scale) {
-        return baseOperator(otherValue -> this.value.divide(otherValue, scale, BigDecimal.ROUND_HALF_UP), other, null);
+    public CalculationUtil divideWithScale(Number other, Integer scale) {
+        return baseOperator(otherValue -> this.value.divide(otherValue, scale, RoundingMode.HALF_UP), other, null);
     }
 
     /**
      * 除以
+     *
      * @param other
-     * @param scale 结果保留 scale 位小数
-     * @param beforeOperteScale 除以之前先把 other 四舍五入法保留 beforeOperteScale 位小数
+     * @param scale              结果保留 scale 位小数
+     * @param beforeOperateScale 除以之前先把 other 四舍五入法保留 beforeOperteScale 位小数
      * @return
      */
-    public CalculationUtil divideWithScale(Object other, Integer scale, Integer beforeOperteScale) {
-        return baseOperator(otherValue -> this.value.divide(otherValue, scale, BigDecimal.ROUND_HALF_UP), other, beforeOperteScale);
+    public CalculationUtil divideWithScale(Number other, Integer scale, Integer beforeOperateScale) {
+        return baseOperator(otherValue -> this.value.divide(otherValue, scale, RoundingMode.HALF_UP), other, beforeOperateScale);
     }
 
 
     public BigDecimal getValue() {
         return value;
     }
+
     public BigDecimal getValue(int scale) {
-        return value.setScale(scale, BigDecimal.ROUND_HALF_UP);
+        return value.setScale(scale, RoundingMode.HALF_UP);
     }
 
     public Double getDouble() {
@@ -140,9 +152,11 @@ public class CalculationUtil {
     public Double getDouble(int scale) {
         return getValue(scale).doubleValue();
     }
+
     public Long getLong() {
         return getValue().longValue();
     }
+
     public Integer getInteger() {
         return getValue().intValue();
     }
@@ -150,9 +164,11 @@ public class CalculationUtil {
     private CalculationUtil operator(BiFunction<BigDecimal, BigDecimal, BigDecimal> operator, Object other) {
         return operator(operator, other, null);
     }
+
     private CalculationUtil operator(BiFunction<BigDecimal, BigDecimal, BigDecimal> operator, Object other, Integer beforeOperteScale) {
         return baseOperator(otherValue -> operator.apply(this.value, otherValue), other, beforeOperteScale);
     }
+
     private synchronized CalculationUtil baseOperator(Function<BigDecimal, BigDecimal> operatorFunction, Object other, Integer beforeOperteScale) {
         if (other == null) {
             return this;
@@ -181,7 +197,7 @@ public class CalculationUtil {
         }
 
         if (scale != null) {
-            res = BigDecimal.valueOf(res.setScale(scale, BigDecimal.ROUND_HALF_UP).doubleValue());
+            res = BigDecimal.valueOf(res.setScale(scale, RoundingMode.HALF_UP).doubleValue());
         }
         return res;
     }
