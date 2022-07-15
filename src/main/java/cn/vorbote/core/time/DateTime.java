@@ -39,7 +39,7 @@ public final class DateTime implements
             throw new TimeOutRangeException("month", 1, 12);
         }
 
-        var dayInTheMonth = 0;
+        int dayInTheMonth = 0;
 
         // The situation of month is not bewteen 1 to 12 is handled. Therefore
         // no need for a default block.
@@ -166,7 +166,7 @@ public final class DateTime implements
     @SuppressWarnings("all")
     public DateTime(int year, int month, int date) {
         // Get the instance of calendar.
-        var calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
 
         check(year, month, date, 0, 0, 0);
 
@@ -191,7 +191,7 @@ public final class DateTime implements
     public DateTime(int year, int month, int date, int hour, int minute, int second) {
         check(year, month, date, hour, minute, second);
 
-        var calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
 
         // Set the year, month and date
         calendar.set(Calendar.YEAR, year);
@@ -222,35 +222,11 @@ public final class DateTime implements
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #unix()} instead. This method will be remove since next release.
-     * </b><br>
-     * Get the Unix Timestamp of this current time.
-     *
-     * @return The Unix Timestamp of this {@code DateTime} instance.
-     */
-    @Deprecated
-    public long Unix() {
-        return unix();
-    }
-
-    /**
      * Get the Java Timestamp of this (@code DateTime} instance.
      *
      * @return The Java Timestamp of this {@code DateTime} instance, but will lose the millisecond.
      */
     public long java() {
-        return timestamp * 1000L;
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #java()} instead. This method will be remove since next release.
-     * </b><br>
-     * Get the Java Timestamp of this (@code DateTime} instance.
-     *
-     * @return The Java Timestamp of this {@code DateTime} instance, but will lose the millisecond.
-     */
-    @Deprecated
-    public long Java() {
         return timestamp * 1000L;
     }
 
@@ -272,19 +248,6 @@ public final class DateTime implements
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #add(TimeSpan)} instead. This method will be remove since next
-     * release.</b><br>
-     * Add the specific time to the {@code DateTime} instance.
-     *
-     * @param ts Time Span.
-     * @return The time after added this {@code TimeSpan}.
-     */
-    @Deprecated
-    public DateTime Add(TimeSpan ts) {
-        return add(ts);
-    }
-
-    /**
      * Returns a new {@code DateTime} that adds the specified number of days to the value of this instance.
      *
      * @param days A number of whole and fractional days. The value parameter can be negative or positive.
@@ -293,30 +256,16 @@ public final class DateTime implements
      */
     public DateTime addDays(double days) {
         // Set the current time to the time of the current instance.
-        var calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timestamp * 1000L);
 
         // Calculate the times.
-        var seconds = (int) (days * 24 * 60 * 60);
+        int seconds = (int) (days * 24 * 60 * 60);
 
         // Add time
         calendar.add(Calendar.SECOND, seconds);
         timestamp = calendar.getTimeInMillis() / 1000L;
         return this;
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #addDays(double)} instead. This method will be remove since next
-     * release.</b><br>
-     * Returns a new {@code DateTime} that adds the specified number of days to the value of this instance.
-     *
-     * @param days A number of whole and fractional days. The value parameter can be negative or positive.
-     * @return An object whose value is the sum of the date and time represented by this instance and the number of days
-     * represented by value.
-     */
-    @Deprecated
-    public DateTime AddDays(double days) {
-        return addDays(days);
     }
 
     /**
@@ -328,31 +277,16 @@ public final class DateTime implements
      */
     public DateTime addHours(double hours) {
         // Set the current time to the time of the current instance.
-        var calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timestamp * 1000L);
 
         // Calculate the seconds to be added.
-        var seconds = (int) (hours * 60 * 60);
+        int seconds = (int) (hours * 60 * 60);
 
         // Add to the calendar instance.
         calendar.add(Calendar.SECOND, seconds);
         timestamp = calendar.getTimeInMillis() / 1000L;
         return this;
-    }
-
-
-    /**
-     * <b>This method is deprecated, please use {@link #addHours(double)} instead. This method will be remove since next
-     * release.</b><br>
-     * Returns a new {@code DateTime} that adds the specified number of hours to the value of this instance.
-     *
-     * @param hours A number of whole and fractional hours. The value parameter can be negative or positive.
-     * @return An object whose value is the sum of the date and time represented by this instance and the number of
-     * hours represented by value.
-     */
-    @Deprecated
-    public DateTime AddHours(double hours) {
-        return addHours(hours);
     }
 
     /**
@@ -364,29 +298,15 @@ public final class DateTime implements
      */
     public DateTime addMinutes(double minutes) {
         // Set the current time to the time of the current instance.
-        var calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timestamp * 1000L);
 
-        var seconds = (int) (minutes * 60);
+        int seconds = (int) (minutes * 60);
 
         // Add to the calendar instance.
         calendar.add(Calendar.SECOND, seconds);
         timestamp = calendar.getTimeInMillis() / 1000L;
         return this;
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #addMinutes(double)} instead. This method will be remove since
-     * next release.</b><br>
-     * Returns a new {@code DateTime} that adds the specified number of hours to the value of this instance.
-     *
-     * @param minutes A number of whole and fractional minutes. The value parameter can be negative or positive.
-     * @return An object whose value is the sum of the date and time represented by this instance and the number of
-     * minutes represented by value.
-     */
-    @Deprecated
-    public DateTime AddMinutes(double minutes) {
-        return addMinutes(minutes);
     }
 
     /**
@@ -397,26 +317,13 @@ public final class DateTime implements
      */
     public DateTime addMonths(int months) {
         // Set the current time to the time of the current instance.
-        var calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timestamp * 1000L);
 
         // Add to the calendar instance.
         calendar.add(Calendar.MONTH, months);
         timestamp = calendar.getTimeInMillis() / 1000L;
         return this;
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #addMonths(int)} instead. This method will be remove since next
-     * release.</b><br>
-     * Returns a new {@code DateTime} that adds the specified number of months to the value of this instance.
-     *
-     * @param months A number of months. The parameter can be negative or positive.
-     * @return An object whose value is the sum of the date and time represented by this instance and months.
-     */
-    @Deprecated
-    public DateTime AddMonths(int months) {
-        return addMonths(months);
     }
 
     /**
@@ -428,27 +335,13 @@ public final class DateTime implements
      */
     public DateTime addSeconds(int seconds) {
         // Set the current time to the time of the current instance.
-        var calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timestamp * 1000L);
 
         // Add to the calendar instance.
         calendar.add(Calendar.SECOND, seconds);
         timestamp = calendar.getTimeInMillis() / 1000L;
         return this;
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #addSeconds(int)} instead. This method will be remove since next
-     * release.</b><br>
-     * Returns a new {@code DateTime} that adds the specified number of seconds to the value of this instance.
-     *
-     * @param seconds A number of whole and fractional seconds. The value parameter can be negative or positive.
-     * @return An object whose value is the sum of the date and time represented by this instance and the number of
-     * seconds represented by value.
-     */
-    @Deprecated
-    public DateTime AddSeconds(int seconds) {
-        return addSeconds(seconds);
     }
 
     /**
@@ -460,7 +353,7 @@ public final class DateTime implements
      */
     public DateTime addYears(int years) {
         // Set the current time to the time of the current instance.
-        var calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timestamp * 1000L);
 
         // Add to the calendar instance.
@@ -470,27 +363,13 @@ public final class DateTime implements
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #addYears(int)} instead. This method will be remove since next
-     * release.</b><br>
-     * Returns a new {@code DateTime} that adds the specified number of years to the value of this instance.
-     *
-     * @param years A number of years. The value parameter can be negative or positive.
-     * @return An object whose value is the sum of the date and time represented by this instance and the number of
-     * years represented by value.
-     */
-    @Deprecated
-    public DateTime AddYears(int years) {
-        return addYears(years);
-    }
-
-    /**
      * Minus the specific time to the {@code DateTime} instance.
      *
      * @param ts Time Span.
      * @return The time after added this {@code TimeSpan}.
      */
     public DateTime minus(TimeSpan ts) {
-        var calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timestamp * 1000L);
         calendar.add(Calendar.DATE, -ts.getDays());
         calendar.add(Calendar.HOUR, -ts.getHours());
@@ -498,19 +377,6 @@ public final class DateTime implements
         calendar.add(Calendar.SECOND, -ts.getSeconds());
         this.timestamp = calendar.getTimeInMillis() / 1000L;
         return this;
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #minus(TimeSpan)} instead. This method will be remove since next
-     * release.</b><br>
-     * Minus the specific time to the {@code DateTime} instance.
-     *
-     * @param ts Time Span.
-     * @return The time after added this {@code TimeSpan}.
-     */
-    @Deprecated
-    public DateTime Minus(TimeSpan ts) {
-        return minus(ts);
     }
 
     /**
@@ -522,27 +388,12 @@ public final class DateTime implements
      * between them.
      */
     public TimeSpan minus(DateTime time) {
-        var span = new TimeSpan();
+        TimeSpan span = new TimeSpan();
 
-        var seconds = this.timestamp - time.timestamp;
-        span.setTotalSeconds((int) seconds);
+        long seconds = this.timestamp - time.timestamp;
+        span.setTotalSeconds(seconds);
 
         return span;
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #minus(DateTime)} instead. This method will be remove since next
-     * release.</b><br>
-     * A {@code DateTime} instance minus another instance will return a {@code TimeSpan} instance, this {@code TimeSpan}
-     * instance will tell you how many days, hours, minutes, seconds and milliseconds between them.
-     *
-     * @param time Another {@code DateTime} instance
-     * @return A {@code TimeSpan} instance which will tell you how many days, hours, minutes, seconds and milliseconds
-     * between them.
-     */
-    @Deprecated
-    public TimeSpan Minus(DateTime time) {
-        return minus(time);
     }
 
     /**
@@ -557,37 +408,12 @@ public final class DateTime implements
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #pattern(String)} instead. This method will be remove since next
-     * release.</b><br>
-     * Set pattern for this datetime.
-     *
-     * @param pattern The formatted String.
-     * @return The {@code DateTime} instance itself.
-     */
-    @Deprecated
-    public DateTime Pattern(String pattern) {
-        return pattern(pattern);
-    }
-
-    /**
      * Get pattern for this datetime.
      *
      * @return The pattern String.
      */
     public String pattern() {
         return this.pattern;
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #pattern()} instead. This method will be remove since next
-     * release.</b><br>
-     * Get pattern for this datetime.
-     *
-     * @return The pattern String.
-     */
-    @Deprecated
-    public String Pattern() {
-        return pattern();
     }
 
     /**
@@ -602,19 +428,6 @@ public final class DateTime implements
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #timestamp(long)} instead. This method will be remove since next
-     * release.</b><br>
-     * Set the timestamp.
-     *
-     * @param timestamp The timestamp.
-     * @return The {@code DateTime} instance itself.
-     */
-    @Deprecated
-    public DateTime Timestamp(long timestamp) {
-        return timestamp(timestamp);
-    }
-
-    /**
      * Get the timestamp.
      *
      * @return The timestamp.
@@ -626,44 +439,14 @@ public final class DateTime implements
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #timestamp()} instead. This method will be remove since next
-     * release.</b><br>
-     * Get the timestamp.
-     *
-     * @return The timestamp.
-     * @see #unix()
-     * @see #getTimestamp()
-     */
-    @Deprecated
-    public long Timestamp() {
-        return timestamp();
-    }
-
-    /**
      * This method {@code o.toString()} will convert the timestamp to a string time expression in the specified format.
      *
      * @return A string time expression.
-     * @see #ToString()
      */
     @Override
     public String toString() {
-        final var formatter = new SimpleDateFormat(pattern);
-        final var date = new Date(timestamp * 1000L);
-        return formatter.format(date);
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #addDays(double)} instead. This method will be remove since next release.
-     * </b><br>
-     * This method {@code o.toString()} will convert the timestamp
-     * to a string time expression in the specified format.
-     *
-     * @return A string time expression.
-     */
-    @Deprecated
-    public String ToString() {
-        final var formatter = new SimpleDateFormat(pattern);
-        final var date = new Date(timestamp * 1000L);
+        final SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        final Date date = new Date(timestamp * 1000L);
         return formatter.format(date);
     }
 
@@ -682,40 +465,6 @@ public final class DateTime implements
     @Override
     public int compareTo(DateTime o) {
         return (int) (this.timestamp() - o.timestamp());
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #addDays(double)} instead. This method will be remove since next release.
-     * </b><br>
-     * Compares this object with the specified object for order.  Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object.
-     *
-     * @param o the object to be compared.
-     * @return a negative integer, zero, or a positive integer as this object
-     * is less than, equal to, or greater than the specified object.
-     * @throws NullPointerException if the specified object is null
-     * @throws ClassCastException   if the specified object's type prevents it
-     *                              from being compared to this object.
-     */
-    @Deprecated
-    public int CompareTo(DateTime o) {
-        return compareTo(o);
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #addDays(double)} instead. This method will be remove since next release.
-     * </b><br>
-     * Returns a value indicating whether the value of this instance is equal
-     * to the value of the specified {@code DateTime} instance.
-     *
-     * @param o The object to compare to this instance.
-     * @return True if the value parameter equals the value of this instance;
-     * Otherwise, false.
-     */
-    @Deprecated
-    public boolean Equals(DateTime o) {
-        return equals(o);
     }
 
     /**
@@ -754,40 +503,15 @@ public final class DateTime implements
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #now()} instead. This method will be remove since next release.
-     * </b><br>
-     * Get the current Date and Time.
-     *
-     * @return The current Date and Time.
-     * @see #DateTime()
-     */
-    @Deprecated
-    public static DateTime Now() {
-        return now();
-    }
-
-    /**
      * Returns an indication whether the specified year is a leap year.
      *
      * @return An indication whether the specified year is a leap year.
      */
     public boolean isLeapYear() {
-        var calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timestamp() * 1000L);
-        var year = calendar.get(Calendar.YEAR);
+        int year = calendar.get(Calendar.YEAR);
         return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #isLeapYear()} instead. This method will be remove since next
-     * release.</b><br>
-     * Returns an indication whether the specified year is a leap year.
-     *
-     * @return An indication whether the specified year is a leap year.
-     */
-    @Deprecated
-    public boolean IsLeapYear() {
-        return isLeapYear();
     }
 
     /**
@@ -800,37 +524,13 @@ public final class DateTime implements
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #toDate()} instead. This method will be remove since next
-     * release.</b><br>
-     * Convert {@code DateTime} instance to {@code Date} instance.
-     *
-     * @return {@code Date} instance.
-     */
-    @Deprecated
-    public Date ToDate() {
-        return toDate();
-    }
-
-    /**
      * Convert {@code DateTime} instance to {@code Calendar} instance.
      *
      * @return {@code Calendar} instance.
      */
     public Calendar toCalendar() {
-        var instance = Calendar.getInstance();
+        Calendar instance = Calendar.getInstance();
         instance.setTime(this.toDate());
         return instance;
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #toCalendar()} instead. This method will be remove since next
-     * release.</b><br>
-     * Convert {@code DateTime} instance to {@code Calendar} instance.
-     *
-     * @return {@code Calendar} instance.
-     */
-    @Deprecated
-    public Calendar ToCalendar() {
-        return toCalendar();
     }
 }

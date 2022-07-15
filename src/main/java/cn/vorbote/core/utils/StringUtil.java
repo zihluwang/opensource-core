@@ -36,8 +36,8 @@ public final class StringUtil {
      * {@code false}.
      */
     private static boolean containsText(CharSequence str) {
-        var strLen = str.length();
-        for (var i = 0; i < strLen; i++) {
+        int strLen = str.length();
+        for (int i = 0; i < strLen; i++) {
             if (!Character.isWhitespace(str.charAt(i))) {
                 return true;
             }
@@ -134,8 +134,8 @@ public final class StringUtil {
             return false;
         }
 
-        var strLength = str.length();
-        for (var i = 0; i < strLength; i++) {
+        int strLength = str.length();
+        for (int i = 0; i < strLength; i++) {
             if (!Character.isWhitespace(str.charAt(i))) {
                 return true;
             }
@@ -167,8 +167,8 @@ public final class StringUtil {
             return str;
         }
 
-        var beginIndex = 0;
-        var endIndex = str.length() - 1;
+        int beginIndex = 0;
+        int endIndex = str.length() - 1;
 
         while (beginIndex <= endIndex && Character.isWhitespace(str.charAt(beginIndex))) {
             beginIndex++;
@@ -193,11 +193,11 @@ public final class StringUtil {
             return str;
         }
 
-        var len = str.length();
-        var builder = new StringBuilder(str.length());
+        int len = str.length();
+        StringBuilder builder = new StringBuilder(str.length());
 
-        for (var i = 0; i < len; ++i) {
-            var c = str.charAt(i);
+        for (int i = 0; i < len; ++i) {
+            char c = str.charAt(i);
             if (!Character.isWhitespace(c)) {
                 builder.append(c);
             }
@@ -228,22 +228,7 @@ public final class StringUtil {
     }
 
     /**
-     * <b>This method will be removed from version 3.5.0</b><br>
-     * Count how many times does the substring in the base string. The same implementation with
-     * {@link #count(String, String)}.
-     *
-     * @param base      The original string.
-     * @param substring The substring.
-     * @return The number of the count.
-     */
-    @Deprecated
-    public static int Count(String base, String substring) {
-        return count(base, substring);
-    }
-
-    /**
-     * Check the string is empty. The same implementation with {@link #IsEmpty(String)} but with a java style
-     * identifier.
+     * Check the string is empty.
      *
      * @param val The string you want to check
      * @return True while the string is empty, otherwise return false
@@ -253,32 +238,7 @@ public final class StringUtil {
     }
 
     /**
-     * <b>This method will be removed from version 3.5.0</b><br>
-     * Check the string is empty.
-     *
-     * @param val The string you want to check.
-     * @return True while the string is empty, otherwise return false.
-     */
-    @Deprecated
-    public static boolean IsEmpty(String val) {
-        return val == null || val.length() == 0;
-    }
-
-    /**
-     * <b>This method will be removed from version 3.5.0</b><br>
      * Check the string is not empty.
-     *
-     * @param val The string you want to check
-     * @return True while the string is not empty, otherwise return false
-     */
-    @Deprecated
-    public static boolean IsNotEmpty(String val) {
-        return !isEmpty(val);
-    }
-
-    /**
-     * Check the string is not empty. The same implementation with {@link #IsNotEmpty(String)} but with a java style
-     * identifier.
      *
      * @param val The string you want to check
      * @return True while the string is not empty, otherwise return false
@@ -288,39 +248,22 @@ public final class StringUtil {
     }
 
     /**
-     * Determine if the string contains only white space characters. The same implementation with
-     * {@link #IsBlank(String)} but with a java style identifier.
+     * Determine if the string contains only white space characters.
      *
      * @param val The string you want to check
      * @return True while the string is blank, otherwise return false.
      * Blank means the string is meaningless, or it only got spaces or tabs in it.
      */
     public static boolean isBlank(String val) {
-        return val.isBlank();
+        return hasText(trimAllWhitespace(val));
     }
 
     /**
-     * <b>This method will be removed from version 3.5.0</b><br>
-     * Determine if the string contains only white space characters.
-     *
-     * @param val The string you want to check
-     * @return True while the string is blank, otherwise return false.
-     * Blank means the string is meaningless, or it only got spaces or tabs in it.
-     * @see String#isBlank()
-     */
-    @Deprecated
-    public static boolean IsBlank(String val) {
-        return val.isBlank();
-    }
-
-    /**
-     * Format any string using wild card of "{@code {}}". The same implementation with
-     * {@link #Format(String, Object...)} but with java style identifier.
+     * Format any string using wild card of "{@code {}}".
      *
      * @param format The origin format string.
      * @param args   The args to be put into the string.
      * @return An formatted string.
-     * @see #Format(String, Object...)
      */
     public static String format(String format, Object... args) {
         if (args.length == 0) {
@@ -340,20 +283,4 @@ public final class StringUtil {
         return format;
     }
 
-    /**
-     * <b>This method will be removed from version 3.5.0</b><br>
-     * Format any string using wild card of "{@code {}}".
-     *
-     * @param format The origin format string.
-     * @param args   The args to be put into the string.
-     * @return An formatted string.
-     */
-    @Deprecated
-    public static String Format(String format, Object... args) {
-        return format(format, args);
-    }
-
-
-
 }
-

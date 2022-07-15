@@ -67,32 +67,13 @@ public final class MapUtil {
         Field[] declaredFields = obj.getClass().getDeclaredFields();
         for (Field field : declaredFields) {
             field.setAccessible(true);
-            var result = field.get(obj);
+            Object result = field.get(obj);
             if (result != null) {
                 map.put(field.getName(), result);
             }
         }
 
         return map;
-    }
-
-    /**
-     * <b>This method will be removed in version <em>3.5.0</em></b><br>
-     * Dynamically convert object to dictionary/map.
-     *
-     * @param obj Objects that need to be converted to map.
-     * @return Converted hash map.
-     * @throws IllegalAccessException This method will call {@link Field#get(Object)}, if this Field object is enforcing
-     *                                Java language access control and the underlying field is inaccessible.
-     * @see Object#getClass()
-     * @see Class#getDeclaredFields()
-     * @see Field#setAccessible(boolean)
-     * @see Field#get(Object)
-     * @see Map#put(Object, Object)
-     */
-    @Deprecated
-    public static Map<String, Object> SetMap(Object obj) throws Exception {
-        return objectToMap(obj);
     }
 
     /**
@@ -188,33 +169,6 @@ public final class MapUtil {
     }
 
     /**
-     * <b>This method will be removed in version <em>3.5.0</em></b><br>
-     * Set an object by reflection, it will create a new instance by this method, you don't have to pass an instance to
-     * it anymore.
-     *
-     * @param map          The map which put the data.
-     * @param requiredType The type you want.
-     * @param <T>          The type you want.
-     * @return An instance of the class you provided, the instance contains all the field values with the same key in
-     * the Map.
-     * @throws NoSuchMethodException     This method will get a no-param constructor, if the class you provided doesn't
-     *                                   contain this class, this exception will be thrown out.
-     * @throws IllegalAccessException    This method will use the no-param constructor to create a new instance, if your
-     *                                   constructor is modified by modifier {@code private}, {@code protected} or the
-     *                                   default modifier.
-     * @throws InvocationTargetException If the underlying constructor throws an exception, then it will be throws out
-     *                                   by this method.
-     * @throws InstantiationException    If you provided an abstract class, it will throw out this exception.
-     * @see Class#getConstructor(Class...)
-     * @see java.lang.reflect.Constructor#newInstance(Object...)
-     */
-    @Deprecated
-    public static <T> T SetObject(Map<String, Object> map, Class<T> requiredType)
-            throws Exception {
-        return mapToObject(map, requiredType);
-    }
-
-    /**
      * Get the specified field value, equivalent to {@code obj.getFieldName}. Before using this method, please make sure
      * that you have a <strong>getter</strong> for that field you need.
      *
@@ -288,35 +242,11 @@ public final class MapUtil {
      * @see #cast(Object, Class)
      */
     public static <T> T getFieldValue(Object obj, String fieldName, Class<T> requiredClass) throws NoSuchFieldException, IllegalAccessException {
-        var objClass = obj.getClass();
-        var field = objClass.getDeclaredField(fieldName);
+        Class<?> objClass = obj.getClass();
+        Field field = objClass.getDeclaredField(fieldName);
         field.setAccessible(true);
-        var value = field.get(obj);
+        Object value = field.get(obj);
         return cast(value, requiredClass);
-    }
-
-    /**
-     * <b>This method will be removed in version <em>3.5.0</em></b><br>
-     * Get the specified field value, equivalent to {@code obj.getFieldName}. Before using this method, please make sure
-     * that you have a <strong>getter</strong> for that field you need.
-     *
-     * @param obj           object
-     * @param fieldName     Field name
-     * @param requiredClass The instance of the specified class.
-     * @param <T>           The type of the value.
-     * @return A string of the object corresponding to the object value
-     * @throws NoSuchFieldException   This method will call {@link Class#getDeclaredField(String)}, if the requested
-     *                                field could not be found, this exception will be thrown.
-     * @throws IllegalAccessException This method will call {@link Field#get(Object)}, if this Field object is enforcing
-     *                                Java language access control and the underlying field is inaccessible, this
-     *                                exception will be thrown.
-     * @see Object#getClass()
-     * @see Class#getDeclaredField(String)
-     * @see Field#setAccessible(boolean)
-     */
-    @Deprecated
-    public static <T> T GetFieldValue(Object obj, String fieldName, Class<T> requiredClass) throws Exception {
-        return getFieldValue(obj, fieldName, requiredClass);
     }
 
     /**
@@ -341,27 +271,6 @@ public final class MapUtil {
             method.setAccessible(true);
             method.invoke(obj, fieldValue);
         }
-    }
-
-    /**
-     * <b>This method will be removed in version <em>3.5.0</em></b><br>
-     * Get the specified field value, equivalent to {@code obj.setFieldName}. Before using this method, please make sure
-     * that you have a <strong>setter</strong> for that field you need.
-     *
-     * @param fieldName  Field name.
-     * @param obj        The object will be set.
-     * @param fieldValue Field Value.
-     * @throws InvocationTargetException This method will call {@link Method#invoke(Object, Object...)}, if the method
-     *                                   object throws an exception, this exception will be thrown.
-     * @throws IllegalAccessException    This method will call {@link Method#invoke(Object, Object...)}, if this Method
-     *                                   object is enforcing Java language access control and the underlying method is
-     *                                   inaccessible.
-     * @see Method#setAccessible(boolean)
-     * @see Method#invoke(Object, Object...)
-     */
-    @Deprecated
-    public static void SetFieldValue(Object obj, String fieldName, Object fieldValue) throws Exception {
-        setFieldValue(obj, fieldName, fieldValue);
     }
 
     /**
@@ -422,21 +331,6 @@ public final class MapUtil {
             return requiredType.cast(value);
         }
         return null;
-    }
-
-    /**
-     * <b>This method will be removed in version <em>3.5.0</em></b><br>
-     * Cast the value to the required type. The value had better to be an instance of {@code Object} or the super class
-     * of the required class.
-     *
-     * @param value        The value.
-     * @param requiredType The required type.
-     * @param <T>          The required type.
-     * @return The value in the form of the instance of the required type.
-     */
-    @Deprecated
-    public static <T> T Cast(Object value, Class<T> requiredType) {
-        return cast(value, requiredType);
     }
 }
 

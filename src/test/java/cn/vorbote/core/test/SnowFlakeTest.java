@@ -15,9 +15,9 @@ public class SnowFlakeTest {
 
     @Test
     public void test() {
-        var snowFlake = new SnowFlake(0, 0);
-        for (var i = 0; i < 5; ++i) {
-            var id = snowFlake.nextId();
+        SnowFlake snowFlake = new SnowFlake(0, 0);
+        for (int i = 0; i < 5; ++i) {
+            long id = snowFlake.nextId();
             log.info(id + " " + String.valueOf(id).length());
         }
     }

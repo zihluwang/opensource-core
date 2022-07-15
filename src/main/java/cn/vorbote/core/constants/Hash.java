@@ -28,21 +28,9 @@ public enum Hash implements IConstant<String> {
      * because of its name.
      *
      * @return The value included in this enum.
-     * @see #ToString()
      */
-    @Deprecated
     @Override
     public String toString() {
-        return value;
-    }
-
-    /**
-     * This method helps you get the value of the enum.
-     *
-     * @return The value included in this enum.
-     * @see #ToString()
-     */
-    public String ToString() {
         return value;
     }
 
@@ -68,8 +56,8 @@ public enum Hash implements IConstant<String> {
             return false;
         }
 
-        var values = Hash.values();
-        for (var hash : values) {
+        Hash[] values = Hash.values();
+        for (Hash hash : values) {
             if (hash.get().equals(value)) {
                 return true;
             }

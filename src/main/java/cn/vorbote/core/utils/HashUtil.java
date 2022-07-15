@@ -50,7 +50,7 @@ public final class HashUtil {
 
         String result = "";
         try {
-            MessageDigest md = MessageDigest.getInstance(method.ToString());
+            MessageDigest md = MessageDigest.getInstance(method.toString());
             md.update(value.getBytes(StandardCharsets.UTF_8));
             byte[] bytes = md.digest();
             StringBuilder builder = new StringBuilder();
@@ -69,51 +69,12 @@ public final class HashUtil {
     }
 
     /**
-     * <b>This method will be removed from version 3.5.0.</b><br>
-     * Encrypt the string via specified encrypt method. All supported method:
-     * <ul>
-     *     <li>{@code MD2}</li>
-     *     <li>{@code MD5}</li>
-     *     <li>{@code SHA-1}</li>
-     *     <li>{@code SHA-224}</li>
-     *     <li>{@code SHA-384}</li>
-     *     <li>{@code SHA-512}</li>
-     * </ul>
-     *
-     * @param method Encrypt method.
-     * @param value  The string will be encrypted.
-     * @return The encrypted String.
-     * @throws UnsupportedHashAlgorithmException If the param method used an item which is not listed on the list above, the
-     *                                       exception will be thrown.
-     * @see MessageDigest#getInstance(String)
-     */
-    @Deprecated
-    public static String Encrypt(Hash method, String value) {
-        return encrypt(method, value);
-    }
-
-    /**
      * Encrypt the string via Base64.
      *
      * @param value The string will be encrypted.
      * @return The encrypted String.
      */
     public static String base64Encode(String value) {
-        Base64.Encoder encoder = Base64.getEncoder();
-        byte[] encodedString = encoder.encode(value.getBytes(StandardCharsets.UTF_8));
-
-        return new String(encodedString);
-    }
-
-    /**
-     * <b>This method will be removed from version 3.5.0.</b><br>
-     * Encrypt the string via Base64.
-     *
-     * @param value The string will be encrypted.
-     * @return The encrypted String.
-     */
-    @Deprecated
-    public static String Base64Encode(String value) {
         Base64.Encoder encoder = Base64.getEncoder();
         byte[] encodedString = encoder.encode(value.getBytes(StandardCharsets.UTF_8));
 
@@ -134,25 +95,12 @@ public final class HashUtil {
     }
 
     /**
-     * <b>This method will be removed from version 3.5.0.</b><br>
-     * Decode the string via Base64.
-     *
-     * @param value The string will be encrypted.
-     * @return The encrypted String.
-     */
-    @Deprecated
-    public static String Base64Decode(String value) {
-        return base64Decode(value);
-    }
-
-    /**
      * This method can decrypt a encrypted String(in byte mode).
      *
      * @param method The decrypt method type.
      * @param key    The key to decrypt the String.
      * @param data   The encrypted {@code String}.
      * @return The original string.
-     * @see #Decrypt(Hash, String, String)
      */
     public static String decrypt(Hash method, String key, byte[] data) {
         if (method != Hash.RC4)
@@ -161,21 +109,6 @@ public final class HashUtil {
             return null;
         }
         return asString(rc4Base(data, key));
-    }
-
-    /**
-     * <b>This method will be removed from version 3.5.0.</b><br>
-     * This method can decrypt an encrypted String(in byte mode).
-     *
-     * @param method The decrypt method type.
-     * @param key    The key to decrypt the String.
-     * @param data   The encrypted {@code String}.
-     * @return The original string.
-     * @see #Decrypt(Hash, String, String)
-     */
-    @Deprecated
-    public static String Decrypt(Hash method, String key, byte[] data) {
-        return decrypt(method, key, data);
     }
 
     /**
@@ -193,20 +126,6 @@ public final class HashUtil {
             return null;
         }
         return new String(rc4Base(castHexStringToBytes(data), key));
-    }
-
-    /**
-     * <b>This method will be removed from version 3.5.0.</b><br>
-     * This method can decrypt a encrypted String(in byte mode).
-     *
-     * @param method The decrypt method type.
-     * @param key    The key to decrypt the String.
-     * @param data   The encrypted {@code String}.
-     * @return The original string.
-     */
-    @Deprecated
-    public static String Decrypt(Hash method, String key, String data) {
-        return decrypt(method, key, data);
     }
 
     /**
@@ -228,20 +147,6 @@ public final class HashUtil {
     }
 
     /**
-     * <b>This method will be removed from version 3.5.0.</b><br>
-     * Encrypt the data through a key.
-     *
-     * @param method The method to encrypt the data.
-     * @param data   The data will be encrypt to rc4 string.
-     * @param key    The key to encrypt the string.
-     * @return The encrypted String by stream.
-     */
-    @Deprecated
-    public static byte[] EncryptToByteStream(Hash method, String data, String key) {
-        return encryptToByteStream(method, data, key);
-    }
-
-    /**
      * Encrypt a string to a HexString
      *
      * @param method The specified method.
@@ -258,21 +163,6 @@ public final class HashUtil {
                         Objects.requireNonNull(encryptToByteStream(Hash.RC4, data, key))
                 )
         );
-
-    }
-
-    /**
-     * <b>This method will be removed from version 3.5.0.</b><br>
-     * Encrypt a string to a HexString
-     *
-     * @param method The specified method.
-     * @param data   The origin data.
-     * @param key    The key.
-     * @return The encrypted string.
-     */
-    @Deprecated
-    public static String Encrypt(Hash method, String key, String data) {
-        return encrypt(method, key, data);
 
     }
 

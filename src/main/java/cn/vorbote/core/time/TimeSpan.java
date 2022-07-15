@@ -120,18 +120,6 @@ public final class TimeSpan {
     }
 
     /**
-     * <b>This method is deprecated, please use {@link #totalSeconds()} instead. This method will be removed since next
-     * release.</b><br>
-     * Get the total seconds in this {@code TimeSpan}.
-     *
-     * @return The total seconds in this {@code TimeSpan}.
-     */
-    @Deprecated
-    public long TotalSeconds() {
-        return totalSeconds();
-    }
-
-    /**
      * Get the total hours in this {@code TimeSpan}.
      *
      * @return The total milliseconds in this {@code TimeSpan}.
@@ -139,20 +127,6 @@ public final class TimeSpan {
      */
     public double totalHours() {
         return totalSeconds() / 60. / 60.;
-    }
-
-    /**
-     * <b>This method is deprecated, please use {@link #totalHours()} instead. This method will be removed since next
-     * release.</b><br>
-     * Get the total hours in this {@code TimeSpan}.
-     *
-     * @return The total milliseconds in this {@code TimeSpan}.
-     * @see #totalHours()
-     * @see #totalSeconds()
-     */
-    @Deprecated
-    public double TotalHours() {
-        return totalHours();
     }
 
     /**

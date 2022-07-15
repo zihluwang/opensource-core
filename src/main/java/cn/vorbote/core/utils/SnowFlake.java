@@ -57,24 +57,13 @@ public class SnowFlake {
      * @param dataCentreId The id of the data centre. (Should between 0 and 31)
      */
     public SnowFlake(long workerId, long dataCentreId) {
-        long maxWorkerId = ~(-1L << workerIdBits);
-        if (workerId > maxWorkerId || workerId < 0) {
-            throw new IllegalArgumentException(String.format("Worker Id can't be greater than %d or less than 0",
-                    maxWorkerId));
-        }
-        long maxDataCentreId = ~(-1L << dataCentreIdBits);
-        if (dataCentreId > maxDataCentreId || dataCentreId < 0) {
-            throw new IllegalArgumentException(String.format("Data Centre Id can't be greater than %d or less than 0",
-                    maxDataCentreId));
-        }
-        this.workerId = workerId;
-        this.dataCentreId = dataCentreId;
-        this.startEpoch = DEFAULT_START_EPOCH;
+        this(DEFAULT_START_EPOCH, workerId, dataCentreId);
     }
 
     /**
      * Constructor can build a new SnowFlake instance.
      *
+     * @param startEpoch   The start epoch to calculate.
      * @param workerId     The id of the server. (Should between 0 and 31)
      * @param dataCentreId The id of the data centre. (Should between 0 and 31)
      */

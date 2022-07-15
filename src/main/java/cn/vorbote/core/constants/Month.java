@@ -103,9 +103,9 @@ public enum Month implements IConstant<Integer> {
             return false;
         }
 
-        var values = Month.values();
-        for (var month : values) {
-            if (month.get() == value) {
+        Month[] values = Month.values();
+        for (Month month : values) {
+            if (month.get().equals(value)) {
                 return true;
             }
         }
