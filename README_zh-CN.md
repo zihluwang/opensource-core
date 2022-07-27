@@ -1,5 +1,9 @@
 ## Open Source Core
 
+本项目由 **JetBrains** 赞助
+
+[![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png)](https://www.jetbrains.com/community/opensource/?utm_campaign=opensource&utm_content=approved&utm_medium=email&utm_source=newsletter&utm_term=jblogo#support)
+
 这是一个非常实用的 `Java` 类库。我们在这次的更新中，将原先的 `commons` 类库、 `common-utils` 类库以及 `time-lib` 类库进行了合并。从此，
 您就再也没有必要引入如此之多的类库。
 
