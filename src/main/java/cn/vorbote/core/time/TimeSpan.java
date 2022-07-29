@@ -1,5 +1,7 @@
 package cn.vorbote.core.time;
 
+import cn.vorbote.core.utils.CalculationUtil;
+
 import java.util.Objects;
 
 /**
@@ -9,9 +11,9 @@ import java.util.Objects;
  */
 public final class TimeSpan {
 
-    private static final long SECONDS_IN_A_DAY = 86400L;
-    private static final long SECONDS_IN_A_HOUR = 3600L;
-    private static final long SECONDS_IN_A_MINUTE = 60L;
+    static final long SECONDS_IN_A_DAY = 86400L;
+    static final long SECONDS_IN_A_HOUR = 3600L;
+    static final long SECONDS_IN_A_MINUTE = 60L;
 
     private long totalSeconds;
 
@@ -87,7 +89,9 @@ public final class TimeSpan {
      * @return The number of minutes between two times.
      */
     public int getMinutes() {
-        return ((int) ((totalSeconds - (getDays() / SECONDS_IN_A_DAY) - (getHours() * SECONDS_IN_A_HOUR)) / SECONDS_IN_A_MINUTE));
+        return ((int) ((totalSeconds -
+                (getDays() * SECONDS_IN_A_DAY) -
+                (getHours() * SECONDS_IN_A_HOUR)) / SECONDS_IN_A_MINUTE));
     }
 
     /**
@@ -126,7 +130,7 @@ public final class TimeSpan {
      * @see #totalSeconds()
      */
     public double totalHours() {
-        return totalSeconds() / 60. / 60.;
+        return CalculationUtil.startOf(totalSeconds()).divide(SECONDS_IN_A_HOUR).getDouble();
     }
 
     /**

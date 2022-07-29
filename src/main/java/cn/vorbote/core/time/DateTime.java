@@ -237,13 +237,7 @@ public final class DateTime implements
      * @return The time after added this {@code TimeSpan}.
      */
     public DateTime add(TimeSpan ts) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date(timestamp * 1000L));
-        calendar.add(Calendar.DATE, ts.getDays());
-        calendar.add(Calendar.HOUR, ts.getHours());
-        calendar.add(Calendar.MINUTE, ts.getMinutes());
-        calendar.add(Calendar.SECOND, ts.getSeconds());
-        this.timestamp = calendar.getTimeInMillis() / 1000L;
+        this.timestamp += ts.getTotalSeconds();
         return this;
     }
 
@@ -255,16 +249,7 @@ public final class DateTime implements
      * represented by value.
      */
     public DateTime addDays(double days) {
-        // Set the current time to the time of the current instance.
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timestamp * 1000L);
-
-        // Calculate the times.
-        int seconds = (int) (days * 24 * 60 * 60);
-
-        // Add time
-        calendar.add(Calendar.SECOND, seconds);
-        timestamp = calendar.getTimeInMillis() / 1000L;
+        timestamp += days * TimeSpan.SECONDS_IN_A_DAY;
         return this;
     }
 
@@ -276,16 +261,7 @@ public final class DateTime implements
      * hours represented by value.
      */
     public DateTime addHours(double hours) {
-        // Set the current time to the time of the current instance.
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timestamp * 1000L);
-
-        // Calculate the seconds to be added.
-        int seconds = (int) (hours * 60 * 60);
-
-        // Add to the calendar instance.
-        calendar.add(Calendar.SECOND, seconds);
-        timestamp = calendar.getTimeInMillis() / 1000L;
+        timestamp += hours * TimeSpan.SECONDS_IN_A_HOUR;
         return this;
     }
 
@@ -297,15 +273,7 @@ public final class DateTime implements
      * minutes represented by value.
      */
     public DateTime addMinutes(double minutes) {
-        // Set the current time to the time of the current instance.
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timestamp * 1000L);
-
-        int seconds = (int) (minutes * 60);
-
-        // Add to the calendar instance.
-        calendar.add(Calendar.SECOND, seconds);
-        timestamp = calendar.getTimeInMillis() / 1000L;
+        timestamp += minutes * TimeSpan.SECONDS_IN_A_MINUTE;
         return this;
     }
 
@@ -334,13 +302,7 @@ public final class DateTime implements
      * seconds represented by value.
      */
     public DateTime addSeconds(int seconds) {
-        // Set the current time to the time of the current instance.
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timestamp * 1000L);
-
-        // Add to the calendar instance.
-        calendar.add(Calendar.SECOND, seconds);
-        timestamp = calendar.getTimeInMillis() / 1000L;
+        timestamp += seconds;
         return this;
     }
 
@@ -369,13 +331,7 @@ public final class DateTime implements
      * @return The time after added this {@code TimeSpan}.
      */
     public DateTime minus(TimeSpan ts) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timestamp * 1000L);
-        calendar.add(Calendar.DATE, -ts.getDays());
-        calendar.add(Calendar.HOUR, -ts.getHours());
-        calendar.add(Calendar.MINUTE, -ts.getMinutes());
-        calendar.add(Calendar.SECOND, -ts.getSeconds());
-        this.timestamp = calendar.getTimeInMillis() / 1000L;
+        timestamp -= ts.totalSeconds();
         return this;
     }
 
