@@ -206,7 +206,7 @@ public final class TimeSpan {
          * @return {@code Builder} instance itself.
          */
         public Builder minutes(int minutes) {
-            target.addHours(minutes);
+            target.addMinutes(minutes);
             return this;
         }
 
