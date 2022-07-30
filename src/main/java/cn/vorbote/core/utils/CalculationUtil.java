@@ -216,11 +216,11 @@ public class CalculationUtil {
     }
 
     private CalculationUtil operator(BiFunction<BigDecimal, BigDecimal, BigDecimal> operator, Object other) {
-        return operator(operator, other, null);
+        return operator(operator, other, 9);
     }
 
     private CalculationUtil operator(BiFunction<BigDecimal, BigDecimal, BigDecimal> operator, Object other, Integer beforeOperateScale) {
-        return baseOperator(otherValue -> operator.apply(this.value, otherValue), other, beforeOperateScale);
+        return baseOperator((otherValue) -> operator.apply(this.value, otherValue), other, beforeOperateScale);
     }
 
     private synchronized CalculationUtil baseOperator(Function<BigDecimal, BigDecimal> operatorFunction, Object other, Integer beforeOperateScale) {
