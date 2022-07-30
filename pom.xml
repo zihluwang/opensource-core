@@ -32,8 +32,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-
-        <project.version>3.4.0</project.version>
     </properties>
 
     <parent>
@@ -45,7 +43,7 @@
     <groupId>cn.vorbote</groupId>
     <artifactId>core</artifactId>
 
-    <version>${project.version}</version>
+    <version>3.4.0</version>
 
     <name>VorBotE :: Opensource Core</name>
     <description>This is the core lib of cn.vorbote libraries.</description>
