@@ -43,7 +43,7 @@
     <groupId>cn.vorbote</groupId>
     <artifactId>core</artifactId>
 
-    <version>3.4.0</version>
+    <version>3.4.1</version>
 
     <name>VorBotE :: Opensource Core</name>
     <description>This is the core lib of cn.vorbote libraries.</description>
